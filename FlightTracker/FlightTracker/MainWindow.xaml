@@ -1,0 +1,59 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FlightTracker"
+        xmlns:WindowsPresentation="clr-namespace:GMap.NET.WindowsPresentation;assembly=GMap.NET.WindowsPresentation"
+        xmlns:ViewModels="clr-namespace:FlightTracker.ViewModels" x:Class="FlightTracker.MainWindow"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        mc:Ignorable="d"      
+        Title="MainWindow" Height="424" Width="800" Background="Black" BorderBrush="#FF2BEF00" BorderThickness="1" WindowStyle="None">
+    <Grid>
+        <Label Content="FlightTracker+" Margin="10,8,0,0" FontWeight="ExtraBold" FontSize="20" FontFamily="Arial Black" HorizontalAlignment="Left" Width="177" Height="41" VerticalAlignment="Top">
+            <Label.Foreground>
+                <RadialGradientBrush>
+                    <GradientStop Color="#FF2BEF00" Offset="0.824"/>
+                    <GradientStop Color="White" Offset="0.866"/>
+                    <GradientStop Color="White" Offset="0.975"/>
+                </RadialGradientBrush>
+            </Label.Foreground>
+        </Label>
+        <TextBox x:Name="ctrl_searchBox" Margin="10,81,0,0" TextWrapping="Wrap" Text="{Binding Airport, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" Height="23" VerticalAlignment="Top" HorizontalAlignment="Left" Width="358">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="TextChanged">
+                    <i:InvokeCommandAction Command="{Binding SortResultsCommand}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </TextBox>
+        <WindowsPresentation:GMapControl x:Name="map" CenterPosition="{Binding Center, Mode=TwoWay}" Zoom="{Binding MapZoom,Mode=TwoWay}" MaxZoom="10" MinZoom="1" Margin="374,79,11,72" Loaded="GMapControl_Loaded" BorderBrush="#FF2BEF00" BorderThickness="1" RenderTransformOrigin="0.5,0.5">
+            <WindowsPresentation:GMapControl.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform AngleY="0.148"/>
+                    <RotateTransform/>
+                    <TranslateTransform Y=".497"/>
+                </TransformGroup>
+            </WindowsPresentation:GMapControl.RenderTransform>
+        </WindowsPresentation:GMapControl>
+        <Button x:Name="btn_Cancel" Content="Exit" Margin="0,16,10,0" BorderBrush="#FFC30000" Foreground="#FFC30000" Background="{x:Null}" Click="btn_Cancel_Click" Height="20" VerticalAlignment="Top" HorizontalAlignment="Right" Width="75"/>
+        <Button x:Name="btn_submit" Command="{Binding selectionMade}" Content="Load" Margin="10,0,0,9" BorderBrush="#FF2BEF00" Foreground="#FF2BEF00" Background="{x:Null}" Height="20" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="75"/>
+        <Label x:Name="lbl_AirportInfo" Content="{Binding lbl_AirportInfo}" Margin="375,0,10,38" Foreground="#FF2BEF00" HorizontalContentAlignment="Center" Height="32" VerticalAlignment="Bottom"/>
+        <ListView x:Name="list" SelectedItem="{Binding selectedAirport, Mode=OneWayToSource}" Margin="10,109,0,72" Background="{x:Null}" BorderBrush="#FF2BEF00" Foreground="#FF2BEF00" ItemsSource="{Binding filteredAirports}" HorizontalAlignment="Left" Width="358" Padding="0,0,2,0" >
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Name"  DisplayMemberBinding="{Binding name}"  Width="220"/>
+                    <GridViewColumn Header="Country" DisplayMemberBinding="{Binding country}" Width="138"/>
+                </GridView>
+            </ListView.View>
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="SelectionChanged">
+                    <i:InvokeCommandAction Command="{Binding setMapLatLong}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </ListView>
+        <Label Content="Please use the search bar below to find an airport. Double click the desired airport. Then click (select) to view outbound and inbound flights." Margin="10,54,0,0" Foreground="#FF2BEF00" FontWeight="Bold" FontSize="11" FontFamily="Arial" HorizontalAlignment="Left" Width="770" Height="22" VerticalAlignment="Top"/>
+        <Button x:Name="btn_help" Command="{Binding openHelp}" Content="Help" Margin="0,16,90,0" BorderBrush="#FF2BEF00" Foreground="#FF2BEF00" Background="{x:Null}" HorizontalAlignment="Right" Width="75" Height="20" VerticalAlignment="Top"/>
+        <Label Content="{Binding AirportCount}" HorizontalContentAlignment="Center" Margin="10,0,0,45" Foreground="#FF2BEF00" FontWeight="Bold" FontSize="10" FontFamily="Arial" HorizontalAlignment="Left" Width="358" Height="22" VerticalAlignment="Bottom" VerticalContentAlignment="Center"/>
+    </Grid>
+</Window>

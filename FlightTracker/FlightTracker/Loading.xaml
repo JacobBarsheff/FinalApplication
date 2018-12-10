@@ -1,0 +1,22 @@
+﻿<Window x:Class="FlightTracker.Loading"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FlightTracker"
+        mc:Ignorable="d"
+        Title="Loading" Height="250" Width="500" Background="Black" BorderBrush="#FF2BEF00" BorderThickness="1" WindowStyle="None">
+    <Grid>
+        <Label Content="FlightTracker+" HorizontalContentAlignment="Center" Margin="10,10,0,0" FontWeight="ExtraBold" FontSize="20" FontFamily="Arial Black" HorizontalAlignment="Left" Width="470" Height="41" VerticalAlignment="Top">
+            <Label.Foreground>
+                <RadialGradientBrush>
+                    <GradientStop Color="#FF2BEF00" Offset="0.824"/>
+                    <GradientStop Color="White" Offset="0.866"/>
+                    <GradientStop Color="White" Offset="0.975"/>
+                </RadialGradientBrush>
+            </Label.Foreground>
+        </Label>
+        <Label  HorizontalContentAlignment="Center" Content="Gathering your flight results now! This may take a minute. &#xA;" Margin="10,112,0,0" Foreground="#FF2BEF00" FontWeight="Bold" FontSize="11" FontFamily="Arial" HorizontalAlignment="Left" Width="470" Height="26" VerticalAlignment="Top"/>
+
+    </Grid>
+</Window>
